@@ -1,10 +1,9 @@
-Sure, berikut adalah contoh README yang dapat Anda gunakan sebagai deskripsi aplikasi di proyek Flutter Booking App:
 
 ---
 
 # Flutter Booking App
 
-![App Logo](path/to/your/app_logo.png)
+![App Logo](/images/logo.png)
 
 ## Deskripsi Aplikasi
 
