@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "491919117032",
+    "project_id": "flutterbookingapp-16b1f",
+    "storage_bucket": "flutterbookingapp-16b1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491919117032:android:b607028446f996328fd75d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_booking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4GGdaFUH_WZPN24myNzeNtKxGusS8Vlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
