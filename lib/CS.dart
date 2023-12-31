@@ -28,9 +28,10 @@ class CsPage extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (context) => HomePage(
-                        userEmail: userEmail,
-                      )),
+                builder: (context) => HomePage(
+                  userEmail: userEmail,
+                ),
+              ),
             );
           },
         ),
@@ -41,22 +42,30 @@ class CsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                padding: const EdgeInsets.all(16.0),
-                child: GestureDetector(
-                  onTap: () {
-                    ('wa.me//6285725040030'); // Replace with the desired link
-                  },
-                  child: Text(
-                    'Bayu Tri Prayitno',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
+                // Wrap the text in a SingleChildScrollView to enable scrolling
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16),
+                      Text(
+                        '1. Bayu Tri Prayitno (4.33.22.0.04)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        '2. Hussain Tamam Gucci  (4.33.22.0.09)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              // Add other widgets or links here
             ],
           ),
         ),
