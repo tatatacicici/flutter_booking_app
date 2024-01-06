@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_booking_app/CS.dart';
+import 'package:flutter_booking_app/menuBooking.dart';
 import 'package:flutter_booking_app/widget.dart';
 import 'package:flutter_booking_app/detail_lapangan.dart';
 
@@ -61,7 +62,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              buildBookingRow('images/booking.png', 'BOOKING'),
+              buildBookingRow('images/booking.png', 'BOOKING', context),
               SizedBox(height: 10),
               buildfieldRow(context),
               SizedBox(height: 10),
@@ -93,61 +94,70 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildBookingRow(String imagePath, String text) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Icon
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                imagePath,
-                height: 100,
-                width: 100,
-                fit: BoxFit.cover,
+  Widget buildBookingRow(String imagePath, String text, BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MenuBooking(userEmail: userEmail)),
+          );
+        },
+        child: Container(
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 7,
+                offset: Offset(0, 3),
               ),
-            ),
+            ],
           ),
-          SizedBox(width: 20),
-          // Text
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  text,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Icon
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'Jangan di pencet, taku keterusan!',
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    imagePath,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(width: 20),
+              // Text
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Jangan di pencet, taku keterusan!',
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget buildfieldRow(BuildContext context) {

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_app/HomePage.dart';
-import 'package:flutter_booking_app/detailLapA.dart';
-import 'package:flutter_booking_app/detailLapB.dart';
+import 'package:flutter_booking_app/bookLapA.dart';
+import 'package:flutter_booking_app/bookLapB.dart';
 import 'package:flutter_booking_app/widget.dart';
 
-class DetailLapangan extends StatelessWidget {
-  final String userEmail; // Add this line
-
-  const DetailLapangan({Key? key, required this.userEmail}) : super(key: key);
+class MenuBooking extends StatelessWidget {
+  final String userEmail;
+  const MenuBooking({Key? key, required this.userEmail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail Lapangan',
+          'Booking Lapangan',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         centerTitle: true,
@@ -71,12 +70,10 @@ class DetailLapangan extends StatelessWidget {
   Widget buildlapanganA(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => LapA(
+              builder: (context) => BookLapA(
                     userEmail: userEmail,
                   )),
         );
@@ -148,7 +145,7 @@ class DetailLapangan extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => LapB(
+              builder: (context) => BookLapB(
                     userEmail: userEmail,
                   )),
         );
