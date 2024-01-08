@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_app/HomePage.dart';
 import 'package:flutter_booking_app/widget.dart';

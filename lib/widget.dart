@@ -103,4 +103,38 @@ class Tampilan extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildSessionButton(String session, String selectedSession, int price,
+      VoidCallback onPressed) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        primary: session == selectedSession ? Colors.green : Colors.grey,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              session,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 4.0),
+            Text(
+              'Rp${price.toString()}',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
