@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_app/HomePage.dart'; // Import your home page
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -57,8 +58,9 @@ class _SignInPageState extends State<SignInPage> {
                   try {
                     UserCredential userCredential =
                         await _auth.createUserWithEmailAndPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text);
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    );
 
                     UserCredential signIncredential =
                         await _auth.signInWithEmailAndPassword(
@@ -66,6 +68,16 @@ class _SignInPageState extends State<SignInPage> {
                       password: _passwordController.text,
                     );
 
+                    // Simpan data ke Firestore
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(signIncredential.user?.uid)
+                        .set({
+                      'username': _usernameController.text,
+                      'email': _emailController.text,
+                    });
+
+                    // Navigasi ke halaman HomePage
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
