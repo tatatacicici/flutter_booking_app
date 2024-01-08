@@ -6,7 +6,10 @@ import 'package:flutter_booking_app/widget.dart';
 
 class MenuBooking extends StatelessWidget {
   final String userEmail;
-  const MenuBooking({Key? key, required this.userEmail}) : super(key: key);
+  const MenuBooking({
+    Key? key,
+    required this.userEmail,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

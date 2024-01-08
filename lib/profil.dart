@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_booking_app/HomePage.dart';
 import 'package:flutter_booking_app/widget.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var informationTextStyle = TextStyle(
   fontFamily: 'Oxygen',
@@ -10,6 +13,7 @@ var informationTextStyle = TextStyle(
 
 class ProfilPage extends StatefulWidget {
   final String userEmail;
+
   const ProfilPage({Key? key, required this.userEmail}) : super(key: key);
 
   @override
@@ -19,6 +23,15 @@ class ProfilPage extends StatefulWidget {
 class _ProfilPageState extends State<ProfilPage> {
   String? retrievedUserName;
   String? retrievedUserEmail;
+  String _fotoUrl = '/';
+
+  @override
+  void initState() {
+    super.initState();
+    getDataFromFirestore(widget.userEmail);
+    _loadImageFromPrefs();
+  }
+
 
   // Method untuk mengambil data dari Firestore
   Future<void> getDataFromFirestore(String userEmail) async {
@@ -29,29 +42,51 @@ class _ProfilPageState extends State<ProfilPage> {
           .where('email', isEqualTo: userEmail)
           .get();
       if (userData.docs.isNotEmpty) {
-        // Pastikan terdapat data yang ditemukan
         Map<String, dynamic> user =
             userData.docs[0].data() as Map<String, dynamic>;
 
-        // Lakukan sesuatu dengan data yang diambil, misalnya, simpan ke variabel state
         setState(() {
           retrievedUserName = user['username'];
           retrievedUserEmail = user['email'];
-          print(user['email']);
         });
       } else {
         print('User not found');
       }
     } catch (e) {
       print('Error retrieving data from Firestore: $e');
-      // Handle error jika diperlukan
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getDataFromFirestore(widget.userEmail);
+  // Fungsi untuk menyimpan _fotoUrl_ menggunakan shared preferences
+  Future<void> saveFotoUrl(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('fotoUrl', url);
+  }
+
+  // Fungsi untuk mendapatkan _fotoUrl_ dari shared preferences
+  Future<void> _loadImageFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? fotoUrl = prefs.getString('fotoUrl');
+    if (fotoUrl != null) {
+      setState(() {
+        _fotoUrl = fotoUrl;
+      });
+    }
+  }
+
+  // Metode untuk mengambil gambar dari galeri
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _fotoUrl = pickedFile.path;
+        saveFotoUrl(
+            _fotoUrl); // Simpan _fotoUrl_ menggunakan shared preferences
+      });
+    }
+
   }
 
   @override
@@ -83,13 +118,19 @@ class _ProfilPageState extends State<ProfilPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 50.0,
-                backgroundImage: AssetImage('images/foto_profil.jpg'),
+              GestureDetector(
+                onTap: _pickImage,
+                child: CircleAvatar(
+                  radius: 50.0,
+                  backgroundImage: _fotoUrl.isEmpty
+                      ? AssetImage('images/foto_profil.jpg')
+                      : FileImage(File(_fotoUrl)) as ImageProvider<Object>?,
+                ),
               ),
               SizedBox(height: 16.0),
               Text(
-                'User Name: $retrievedUserName',
+                '$retrievedUserName',
+
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
@@ -97,7 +138,8 @@ class _ProfilPageState extends State<ProfilPage> {
               ),
               SizedBox(height: 8.0),
               Text(
-                'User Email: $retrievedUserEmail',
+                '$retrievedUserEmail',
+
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey,
