@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_booking_app/HomePage.dart'; // Import your home page
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_booking_app/HomePage.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -15,6 +19,42 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  File? _userPhoto;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _userPhoto = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<void> _uploadImageToStorage(String userId) async {
+    if (_userPhoto != null) {
+      try {
+        // Mendapatkan referensi storage
+        Reference storageReference =
+            FirebaseStorage.instance.ref().child('foto_profil/$userId.jpeg');
+
+        // Mengupload foto ke Firebase Storage
+        await storageReference.putFile(_userPhoto!);
+
+        // Mendapatkan URL dari foto yang diupload
+        String downloadURL = await storageReference.getDownloadURL();
+
+        // Menyimpan URL foto ke Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .update({'photoURL': downloadURL});
+      } catch (e) {
+        print('Error uploading image to storage: $e');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +73,13 @@ class _SignInPageState extends State<SignInPage> {
               Image.asset(
                 'images/logo.png',
                 height: 100, // Adjust the height as needed
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () async {
+                  await _pickImage();
+                },
+                child: Text('Pilih Gambar'),
               ),
               SizedBox(height: 16.0),
               // Text fields for email, username, and password
@@ -62,7 +109,7 @@ class _SignInPageState extends State<SignInPage> {
                       password: _passwordController.text,
                     );
 
-                    UserCredential signIncredential =
+                    UserCredential signInCredential =
                         await _auth.signInWithEmailAndPassword(
                       email: _emailController.text,
                       password: _passwordController.text,
@@ -71,18 +118,24 @@ class _SignInPageState extends State<SignInPage> {
                     // Simpan data ke Firestore
                     await FirebaseFirestore.instance
                         .collection('users')
+                        .doc(signInCredential.user?.uid)
+
                         .doc(signIncredential.user?.uid)
                         .set({
                       'username': _usernameController.text,
                       'email': _emailController.text,
                     });
 
+                    // Upload foto ke Firebase Storage dan simpan URL-nya di Firestore
+                    await _uploadImageToStorage(signInCredential.user!.uid);
+
+
                     // Navigasi ke halaman HomePage
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => HomePage(
-                            userEmail: signIncredential.user?.email ?? ""),
+                            userEmail: signInCredential.user?.email ?? ""),
                       ),
                     );
                   } catch (e) {
