@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_booking_app/HomePage.dart';
 
+
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -118,6 +119,8 @@ class _SignInPageState extends State<SignInPage> {
                     await FirebaseFirestore.instance
                         .collection('users')
                         .doc(signInCredential.user?.uid)
+
+                        .doc(signIncredential.user?.uid)
                         .set({
                       'username': _usernameController.text,
                       'email': _emailController.text,
@@ -125,6 +128,7 @@ class _SignInPageState extends State<SignInPage> {
 
                     // Upload foto ke Firebase Storage dan simpan URL-nya di Firestore
                     await _uploadImageToStorage(signInCredential.user!.uid);
+
 
                     // Navigasi ke halaman HomePage
                     Navigator.pushReplacement(

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_booking_app/HomePage.dart';
@@ -14,10 +13,8 @@ var informationTextStyle = TextStyle(
 
 class ProfilPage extends StatefulWidget {
   final String userEmail;
-  final String userName;
 
-  const ProfilPage({Key? key, required this.userEmail, required this.userName})
-      : super(key: key);
+  const ProfilPage({Key? key, required this.userEmail}) : super(key: key);
 
   @override
   _ProfilPageState createState() => _ProfilPageState();
@@ -34,6 +31,7 @@ class _ProfilPageState extends State<ProfilPage> {
     getDataFromFirestore(widget.userEmail);
     _loadImageFromPrefs();
   }
+
 
   // Method untuk mengambil data dari Firestore
   Future<void> getDataFromFirestore(String userEmail) async {
@@ -88,6 +86,7 @@ class _ProfilPageState extends State<ProfilPage> {
             _fotoUrl); // Simpan _fotoUrl_ menggunakan shared preferences
       });
     }
+
   }
 
   @override
@@ -131,6 +130,7 @@ class _ProfilPageState extends State<ProfilPage> {
               SizedBox(height: 16.0),
               Text(
                 '$retrievedUserName',
+
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
@@ -139,6 +139,7 @@ class _ProfilPageState extends State<ProfilPage> {
               SizedBox(height: 8.0),
               Text(
                 '$retrievedUserEmail',
+
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey,
