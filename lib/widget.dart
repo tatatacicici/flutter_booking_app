@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_booking_app/HomePage.dart';
+import 'package:flutter_booking_app/historyPage.dart';
 import 'package:flutter_booking_app/profil.dart';
 
 var informationTextStyle = TextStyle(
@@ -25,7 +26,7 @@ class Tampilan extends StatelessWidget {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(
+              builder: (context) => HistoryPage(
                     userEmail: userEmail,
                   )),
         );
