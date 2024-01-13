@@ -103,7 +103,7 @@ class MenuBooking extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
                 'https://i0.wp.com/isibangunan.com/wp-content/uploads/2017/11/5-Motif-Lantai-Vinyl-Untuk-Lapangan-Futsal-Modern.jpg?fit=800%2C350&ssl=1',
-                height: 120, // Sesuaikan tinggi sesuai kebutuhan
+                height: 120,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -114,13 +114,11 @@ class MenuBooking extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                // Pusatkan teks
                 alignment: Alignment.center,
                 color: Colors.black.withOpacity(0.7),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Teks
                     Text(
                       'LAPANGAN A',
                       style: TextStyle(
@@ -143,8 +141,6 @@ class MenuBooking extends StatelessWidget {
   Widget buildlapanganB(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -175,7 +171,7 @@ class MenuBooking extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
                 'https://kreasi.nurulfikri.ac.id/muha21051ti/PROJEK%20TUGAS%201%20LANDING%20PAGE/images/2.jpg',
-                height: 120, // Sesuaikan tinggi sesuai kebutuhan
+                height: 120,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -186,13 +182,11 @@ class MenuBooking extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                // Pusatkan teks
                 alignment: Alignment.center,
                 color: Colors.black.withOpacity(0.7),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Teks
                     Text(
                       'LAPANGAN B',
                       style: TextStyle(

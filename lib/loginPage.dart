@@ -29,13 +29,11 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo underneath the title
               Image.asset(
                 'images/logo.png',
-                height: 100, // Adjust the height as needed
+                height: 100,
               ),
               SizedBox(height: 16.0),
-              // Text fields for username and password
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
@@ -69,7 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 16.0),
-              // Login button
               ElevatedButton(
                 onPressed: () async {
                   try {

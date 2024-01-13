@@ -21,8 +21,6 @@ class Tampilan extends StatelessWidget {
   Widget buildHistoryNavItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -50,8 +48,6 @@ class Tampilan extends StatelessWidget {
   Widget buildHomeNavItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -79,8 +75,6 @@ class Tampilan extends StatelessWidget {
   Widget buildProfilNavItem(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

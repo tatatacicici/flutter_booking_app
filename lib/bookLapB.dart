@@ -65,7 +65,6 @@ class _BookLapBState extends State<BookLapB> {
       QuerySnapshot<Map<String, dynamic>> bookings = await FirebaseFirestore
           .instance
           .collection('booking')
-          .where('lapangan', isEqualTo: "Lapangan B")
           .where('tanggal',
               isEqualTo: DateFormat('yyyy-MM-dd').format(selectedDate))
           .where('jam',

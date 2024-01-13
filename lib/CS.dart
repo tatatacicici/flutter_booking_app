@@ -8,7 +8,7 @@ var informationTextStyle = TextStyle(
 );
 
 class CsPage extends StatelessWidget {
-  final String userEmail; // Add this line
+  final String userEmail;
 
   const CsPage({Key? key, required this.userEmail}) : super(key: key);
 
@@ -42,7 +42,6 @@ class CsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                // Wrap the text in a SingleChildScrollView to enable scrolling
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
