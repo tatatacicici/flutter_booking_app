@@ -163,8 +163,6 @@ class HomePage extends StatelessWidget {
   Widget buildfieldRow(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -191,7 +189,6 @@ class HomePage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Icon
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -207,7 +204,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(width: 20),
-            // Text
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,8 +229,6 @@ class HomePage extends StatelessWidget {
   Widget buildcsRow(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Add your login logic here
-        // Example: Validation and navigation to the home page
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -261,7 +255,6 @@ class HomePage extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Icon
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -277,7 +270,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(width: 20),
-            // Text
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

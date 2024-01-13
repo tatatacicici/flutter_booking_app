@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_booking_app/HomePage.dart';
 
-
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -51,7 +50,17 @@ class _SignInPageState extends State<SignInPage> {
             .doc(userId)
             .update({'photoURL': downloadURL});
       } catch (e) {
-        print('Error uploading image to storage: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Gambar tidak tersimpan'),
+            action: SnackBarAction(
+              label: 'Close',
+              onPressed: () {},
+            ),
+          ),
+        );
+
+        print("Error: $e");
       }
     }
   }
@@ -69,10 +78,9 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo underneath the title
               Image.asset(
                 'images/logo.png',
-                height: 100, // Adjust the height as needed
+                height: 100,
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
@@ -82,7 +90,6 @@ class _SignInPageState extends State<SignInPage> {
                 child: Text('Pilih Gambar'),
               ),
               SizedBox(height: 16.0),
-              // Text fields for email, username, and password
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
@@ -119,8 +126,6 @@ class _SignInPageState extends State<SignInPage> {
                     await FirebaseFirestore.instance
                         .collection('users')
                         .doc(signInCredential.user?.uid)
-
-                        .doc(signIncredential.user?.uid)
                         .set({
                       'username': _usernameController.text,
                       'email': _emailController.text,
@@ -128,7 +133,6 @@ class _SignInPageState extends State<SignInPage> {
 
                     // Upload foto ke Firebase Storage dan simpan URL-nya di Firestore
                     await _uploadImageToStorage(signInCredential.user!.uid);
-
 
                     // Navigasi ke halaman HomePage
                     Navigator.pushReplacement(

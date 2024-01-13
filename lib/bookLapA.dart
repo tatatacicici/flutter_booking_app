@@ -63,11 +63,10 @@ class _BookLapAState extends State<BookLapA> {
   Future<bool> isTimeSlotAvailable(DateTime selectedDate,
       TimeOfDay selectedTime, String selectedSession) async {
     try {
-      // Check if the time slot is available in Firestore
+      // cek ketersediaan di firestore
       QuerySnapshot<Map<String, dynamic>> bookings = await FirebaseFirestore
           .instance
           .collection('booking')
-          .where('lapangan', isEqualTo: "Lapangan A")
           .where('tanggal',
               isEqualTo: DateFormat('yyyy-MM-dd').format(selectedDate))
           .where('jam',
@@ -76,17 +75,17 @@ class _BookLapAState extends State<BookLapA> {
           .where('sesi', isEqualTo: selectedSession)
           .get();
 
-      // If there are no bookings at the selected time slot, consider it available
+      //jika kosong
       return bookings.docs.isEmpty;
     } catch (error) {
       print('Error checking availability: $error');
-      return false; // Assume not available in case of an error
+      return false;
     }
   }
 
   Future<void> _submitBooking() async {
     if (_formKey.currentState!.validate()) {
-      // Check availability before submitting the booking
+      // cek keteersediaan
       final isAvailable = await isTimeSlotAvailable(
           _selectedDate, _selectedTime, _selectedSession);
 
@@ -109,16 +108,15 @@ class _BookLapAState extends State<BookLapA> {
             );
           },
         );
-        return; // Do not proceed with booking
+        return;
       }
-
-      // Proceed with booking if the time slot is available
+      //lanjutkan jika booking kosonh
       final formattedDate = DateFormat('yyyy-MM-dd').format(_selectedDate!);
       final formattedTime = _selectedTime.format(context);
       final kodeBooking = _generateKodeBooking();
 
       try {
-        // Menentukan lapangan, misalnya "Lapangan A"
+        // Menentukan lapangan
         final lapangan = "Lapangan A";
 
         await FirebaseFirestore.instance.collection('booking').add({
@@ -129,7 +127,6 @@ class _BookLapAState extends State<BookLapA> {
           'kodeBooking': kodeBooking,
           'harga': _selectedPrice,
           'lapangan': lapangan,
-          // tambahkan informasi lainnya sesuai kebutuhan
         });
 
         showDialog(
@@ -147,7 +144,6 @@ class _BookLapAState extends State<BookLapA> {
                   Text('Kode Booking: $kodeBooking'),
                   Text('Harga: $_selectedPrice'),
                   Text('Lapangan: $lapangan'),
-                  // tambahkan informasi lainnya sesuai kebutuhan
                 ],
               ),
               actions: [
@@ -173,9 +169,7 @@ class _BookLapAState extends State<BookLapA> {
       appBar: AppBar(
         title: Text(
           'Booking Lapangan A',
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white), // Mengubah warna judul menjadi hitam
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         centerTitle: true,
         backgroundColor: Colors.green[900],
@@ -205,19 +199,16 @@ class _BookLapAState extends State<BookLapA> {
                   color: Color(0xFFD9D9D9),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment
-                      .center, // Mengubah posisi teks dan ikon ke tengah
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today), // Icon kalender di sini
+                        Icon(Icons.calendar_today),
                         SizedBox(width: 8.0),
                         Text(
                           'Pilih Tanggal',
-                          style: TextStyle(
-                              color: Colors
-                                  .black), // Mengubah warna teks menjadi hitam
+                          style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
@@ -240,19 +231,16 @@ class _BookLapAState extends State<BookLapA> {
                   color: Color(0xFFD9D9D9),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment
-                      .center, // Mengubah posisi teks dan ikon ke tengah
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.access_time), // Icon jam di sini
+                        Icon(Icons.access_time),
                         SizedBox(width: 8.0),
                         Text(
                           'Pilih Jam',
-                          style: TextStyle(
-                              color: Colors
-                                  .black), // Mengubah warna teks menjadi hitam
+                          style: TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
@@ -304,7 +292,7 @@ class _BookLapAState extends State<BookLapA> {
                           ).buildSessionButton(
                             '1 Jam',
                             _selectedSession,
-                            100000, // Updated price for 1 Jam
+                            100000,
                             () {
                               setState(() {
                                 _selectedSession = '1 Jam';
@@ -318,7 +306,7 @@ class _BookLapAState extends State<BookLapA> {
                           ).buildSessionButton(
                             '2 Jam',
                             _selectedSession,
-                            180000, // Updated price for 2 Jam
+                            180000,
                             () {
                               setState(() {
                                 _selectedSession = '2 Jam';
@@ -332,7 +320,7 @@ class _BookLapAState extends State<BookLapA> {
                           ).buildSessionButton(
                             '3 Jam',
                             _selectedSession,
-                            250000, // Updated price for 3 Jam
+                            250000,
                             () {
                               setState(() {
                                 _selectedSession = '3 Jam';
@@ -346,7 +334,7 @@ class _BookLapAState extends State<BookLapA> {
                           ).buildSessionButton(
                             '4 Jam',
                             _selectedSession,
-                            320000, // Updated price for 4 Jam
+                            320000,
                             () {
                               setState(() {
                                 _selectedSession = '4 Jam';

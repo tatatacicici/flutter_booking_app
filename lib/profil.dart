@@ -32,7 +32,6 @@ class _ProfilPageState extends State<ProfilPage> {
     _loadImageFromPrefs();
   }
 
-
   // Method untuk mengambil data dari Firestore
   Future<void> getDataFromFirestore(String userEmail) async {
     try {
@@ -82,11 +81,9 @@ class _ProfilPageState extends State<ProfilPage> {
     if (pickedFile != null) {
       setState(() {
         _fotoUrl = pickedFile.path;
-        saveFotoUrl(
-            _fotoUrl); // Simpan _fotoUrl_ menggunakan shared preferences
+        saveFotoUrl(_fotoUrl);
       });
     }
-
   }
 
   @override
@@ -130,7 +127,6 @@ class _ProfilPageState extends State<ProfilPage> {
               SizedBox(height: 16.0),
               Text(
                 '$retrievedUserName',
-
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
@@ -139,7 +135,6 @@ class _ProfilPageState extends State<ProfilPage> {
               SizedBox(height: 8.0),
               Text(
                 '$retrievedUserEmail',
-
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey,

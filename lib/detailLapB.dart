@@ -130,7 +130,7 @@ class LapB extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
-                'https://assets-skorid.s3.ap-southeast-1.amazonaws.com/lapangan_futsal_fifa_7013b0282e.png', // Ganti dengan URL gambar sesungguhnya
+                'https://assets-skorid.s3.ap-southeast-1.amazonaws.com/lapangan_futsal_fifa_7013b0282e.png',
               ),
               SizedBox(height: 16),
               Text(
@@ -162,7 +162,6 @@ class LapB extends StatelessWidget {
         return AlertDialog(
           title: Text('Fasilitas Lapangan'),
           content: Container(
-            // Wrap the text in a SingleChildScrollView to enable scrolling
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
