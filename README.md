@@ -25,7 +25,7 @@ Aplikasi ini dibuat sebagai proyek akhir mata kuliah Mobile Programming. Tujuan 
 1. **Login atau Register:** Pengguna perlu login atau register terlebih dahulu untuk dapat melakukan booking.
 2. **Pilih Lapangan:** Setelah login, pengguna dapat memilih lapangan yang ingin mereka booking.
 3. **Pilih Waktu:** Tentukan waktu booking sesuai dengan ketersediaan lapangan.
-4. **Lakukan Pembayaran:** Jika sudah memilih waktu, lakukan pembayaran sesuai dengan tarif yang berlaku.
+4. **Lihat Histori** Jika sudah memilih waktu, pengguna dapat melihat histori pemesanannya.
 5. **Cek Informasi Lapangan:** Pengguna juga dapat melihat informasi lengkap tentang fasilitas lapangan yang ingin mereka booking.
 
 ## Instalasi
